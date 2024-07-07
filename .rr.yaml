@@ -5,8 +5,13 @@ server:
   env:
     - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
 
+grpc:
+  listen: "tcp://0.0.0.0:81"
+  proto:
+    - "proto/basket.proto"
+
 http:
-  address: 0.0.0.0:8080
+  address: 0.0.0.0:80
   pool:
     debug: false
   middleware: [ "static", "gzip" ]

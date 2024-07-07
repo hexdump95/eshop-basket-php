@@ -5,11 +5,16 @@ server:
   env:
     - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
 
+grpc:
+  listen: "tcp://0.0.0.0:9103"
+  proto:
+    - "proto/basket.proto"
+
 http:
-  address: 0.0.0.0:8080
-  middleware: [ "static", "gzip" ]
+  address: 0.0.0.0:5103
   pool:
     debug: true
+  middleware: [ "static", "gzip" ]
   uploads:
     forbid: [ ".php", ".exe", ".bat" ]
   static:
