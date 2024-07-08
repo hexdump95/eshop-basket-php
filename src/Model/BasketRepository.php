@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-interface IBasketRepository
+interface BasketRepository
 {
     public function getBasket(string $customerId): ?CustomerBasket;
 }
