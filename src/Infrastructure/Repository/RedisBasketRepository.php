@@ -46,4 +46,9 @@ class RedisBasketRepository implements BasketRepository
 
         return $this->getBasket($basket->getBuyerId());
     }
+
+    public function deleteBasket(string $id): bool
+    {
+        return $this->database->del($id) > 0;
+    }
 }

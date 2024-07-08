@@ -8,4 +8,6 @@ interface BasketRepository
 
     public function updateBasket(CustomerBasket $basket): ?CustomerBasket;
 
+    public function deleteBasket(string $id): bool;
+
 }

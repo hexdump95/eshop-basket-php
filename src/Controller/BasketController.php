@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\BasketRepository;
 use App\Model\CustomerBasket;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +16,16 @@ class BasketController extends AbstractController
 {
     private BasketRepository $repository;
     private SerializerInterface $serializer;
+    private LoggerInterface $logger;
 
     public function __construct(BasketRepository    $repository,
                                 SerializerInterface $serializer,
+                                LoggerInterface     $logger,
     )
     {
         $this->repository = $repository;
         $this->serializer = $serializer;
+        $this->logger = $logger;
     }
 
     #[Route('/{id}', name: 'get_basket_by_id', methods: ['GET'])]
@@ -48,6 +52,14 @@ class BasketController extends AbstractController
 
         $jsonResponse = $this->serializer->serialize($response, 'json');
         return new JsonResponse($jsonResponse, 200, [], true);
+    }
+
+
+    #[Route('/{id}', name: 'delete_basket_by_id', methods: ['DELETE'])]
+    public function deleteBasketById(string $id): JsonResponse
+    {
+        $this->repository->deleteBasket($id);
+        return new JsonResponse([], 200);
     }
 
 }
